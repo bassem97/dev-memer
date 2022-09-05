@@ -1,8 +1,11 @@
 # Random Memer
 
-Flask API to return random programming meme images scrapped from [Memedroid](https://www.memedroid.com/memes/tag/programming).
+Flask API to return random programming meme images scrapped from :
+ - [Memedroid](https://www.memedroid.com/memes/tag/programming).
+ - [cometchat](https://www.cometchat.com/blog/programming-memes-for-developers).
+ - [testbytes](https://www.testbytes.net/blog/programming-memes/).
 
-To use just send a GET request to [https://random-memer.herokuapp.com/](https://random-memer.herokuapp.com/)
+To use just send a GET request to [https://random-memeer.herokuapp.com/](https://random-memeer.herokuapp.com/)
 
 You can also use this with `img` tag in your website and it will display a random meme everytime the website is loaded
 
