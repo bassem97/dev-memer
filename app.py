@@ -22,16 +22,18 @@ def get_new_memes():
     """
     imgs = []
 
+    """ List of the website to scrape """
     url = 'https://www.memedroid.com/memes/tag/programming'
     url2 = 'https://www.cometchat.com/blog/programming-memes-for-developers'
     url3 = 'https://www.testbytes.net/blog/programming-memes/'
 
 
+    """ Get the response of every url """ 
     response = requests.get(url)
     response2 = requests.get(url2)
     response3 = requests.get(url3)
 
-
+    
     soup = BeautifulSoup(response.content, 'lxml')
     soup2 = BeautifulSoup(response2.content, 'lxml')
     soup3 = BeautifulSoup(response3.content, 'lxml')
