@@ -20,6 +20,8 @@ def get_new_memes():
     Returns:
         imgs [list]: List of image URLs
     """
+    imgs = []
+
     url = 'https://www.memedroid.com/memes/tag/programming'
     url2 = 'https://www.cometchat.com/blog/programming-memes-for-developers'
     url3 = 'https://www.testbytes.net/blog/programming-memes/'
@@ -34,13 +36,15 @@ def get_new_memes():
     soup2 = BeautifulSoup(response2.content, 'lxml')
     soup3 = BeautifulSoup(response3.content, 'lxml')
 
+
+
     divs = soup.find_all('div', class_='item-aux-container')
     figures = soup2.find_all('figure', class_='w-richtext-figure-type-image w-richtext-align-fullwidth')
     divs2 = soup3.find_all('img', class_='alignnone')
 
 
 
-    imgs = []
+
     for div in divs:
         img = div.find('img')['src']
         if img.startswith('http') :
