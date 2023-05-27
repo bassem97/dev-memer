@@ -5,12 +5,12 @@ Flask API to return random programming meme images scrapped from :
  - [cometchat](https://www.cometchat.com/blog/programming-memes-for-developers).
  - [testbytes](https://www.testbytes.net/blog/programming-memes/).
 
-To use just send a GET request to [https://random-memeer.herokuapp.com/](https://random-memeer.herokuapp.com/)
+To use just send a GET request to http://dev-memer.info/
 
 You can also use this with `img` tag in your website and it will display a random meme everytime the website is loaded
 
 ```html
-<img src='https://random-memer.herokuapp.com/' title="Meme" alt="Please refresh the page if the meme doesn't show up.">
+<img src='http://http://dev-memer.info/' title="Meme" alt="Please refresh the page if the meme doesn't show up.">
 ```
 
 The API is deployed on the free dyno provided by Heroku, which shuts-down if there is no request to it for some time, so sometimes it might take some time to load the image from the URL.
