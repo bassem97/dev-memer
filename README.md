@@ -13,5 +13,28 @@ You can also use this with `img` tag in your website and it will display a rando
 <img src='http://http://dev-memer.info/' title="Meme" alt="Please refresh the page if the meme doesn't show up.">
 ```
 
-The API is deployed on the free dyno provided by Heroku, which shuts-down if there is no request to it for some time, so sometimes it might take some time to load the image from the URL.
-    
+
+### Installation
+
+1-Clone the project by running this command : 
+
+```bash
+git clone https://github.com/bassem97/random-memer.git
+```
+
+2-Use pip to install the requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+3-Run the app:
+
+```bash
+flask run
+```
+
+### Contributions
+
+Contributions to this project are welcome! Feel free to submit issues or pull requests on the [GitHub repository](https://github.com/bassem97/random-memer.git).
+
