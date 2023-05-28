@@ -12,6 +12,7 @@ from flask import Flask, send_file
 from PIL import Image
 from io import BytesIO
 
+
 app = Flask(__name__)
 
 def get_new_memes():
@@ -28,12 +29,12 @@ def get_new_memes():
     url3 = 'https://www.testbytes.net/blog/programming-memes/'
 
 
-    """ Get the response of every url """ 
+    """ Get the response of every url """
     response = requests.get(url)
     response2 = requests.get(url2)
     response3 = requests.get(url3)
 
-    
+
     soup = BeautifulSoup(response.content, 'lxml')
     soup2 = BeautifulSoup(response2.content, 'lxml')
     soup3 = BeautifulSoup(response3.content, 'lxml')
@@ -76,7 +77,7 @@ def serve_pil_image(pil_img):
         [response]: Sends image file as response
     """
     img_io = BytesIO()
-    pil_img.convert('RGB').save(img_io, 'JPEG', quality=70)
+    pil_img.convert('RGB').save(img_io, 'JPEG', quality=100, optimize=True)
     img_io.seek(0)
     return send_file(img_io, mimetype='image/jpeg')
 
