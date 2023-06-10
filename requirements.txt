@@ -5,3 +5,7 @@ Pillow>=5.4.1
 gunicorn>=20.0.4
 lxml>=4.5.0
 
+
+beautifulsoup4~=4.11.1
+Werkzeug~=2.2.2
+numpy~=1.24.3
