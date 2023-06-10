@@ -8,12 +8,18 @@ Flask API to return random meme images
 import random
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, send_file
+from flask import Flask, send_file, request
 from PIL import Image
 from io import BytesIO
+import os
 
+
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = './UPLOAD_FOLDER'
+
 
 def get_new_memes():
     """Scrapers the website and extracts image URLs
@@ -44,8 +50,6 @@ def get_new_memes():
     divs = soup.find_all('div', class_='item-aux-container')
     figures = soup2.find_all('figure', class_='w-richtext-figure-type-image w-richtext-align-fullwidth')
     divs2 = soup3.find_all('img', class_='alignnone')
-
-
 
 
     for div in divs:
@@ -79,6 +83,9 @@ def serve_pil_image(pil_img):
     img_io = BytesIO()
     pil_img.convert('RGB').save(img_io, 'JPEG', quality=100, optimize=True)
     img_io.seek(0)
+    # download the image to UPLOAD_FOLDER directory
+
+
     return send_file(img_io, mimetype='image/jpeg')
 
 @app.after_request
@@ -98,3 +105,39 @@ def return_meme():
     res.raw.decode_content = True
     img = Image.open(res.raw)
     return serve_pil_image(img)
+
+@app.route("/upload", methods=['GET'])
+def upload_file():
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form action="/upload" method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form>
+    '''
+
+
+@app.route("/fetchMore", methods=['GET'])
+def fetchMore():
+    # get the images and store them in UPLOAD_FOLDER
+    imgs = get_new_memes()
+    # download the images to UPLOAD_FOLDER directory
+    i=0
+    for img in imgs:
+        res = requests.get(img, stream=True)
+        res.raw.decode_content = True
+        img = Image.open(res.raw)
+        ext = img.format
+    #     save the image in the UPLOAD_FOLDER directory
+        img.save(os.path.join(app.config['UPLOAD_FOLDER'], str(i) + '.' + ext))
+
+        i += 1
+
+    return "Done"
+
+
+
+
+
