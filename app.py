@@ -7,7 +7,6 @@ Flask API to return random meme images
 
 import random
 
-import numpy as np
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, send_file, request
@@ -144,20 +143,20 @@ def upload_file():
 
 @app.route("/fetchMore", methods=['GET'])
 def fetchMore():
-    # get the images and store them in UPLOAD_FOLDER
+    # compare the image with the old ones in UPLOAD_FOLDER and store if not exist
     imgs = get_new_memes()
-    # download the images to UPLOAD_FOLDER directory
-    i=0
     for img in imgs:
-        res = requests.get(img, stream=True)
-        res.raw.decode_content = True
-        img = Image.open(res.raw)
-        ext = img.format
-    #     save the image in the UPLOAD_FOLDER directory
-        img.save(os.path.join(app.config['UPLOAD_FOLDER'], str(i) + '.' + ext))
-
-
-
+        response = requests.get(img)
+        # store the original with the same size and format
+        img = Image.open(BytesIO(response.content))
+        isExist = False
+        for file in os.listdir(uploads_dir):
+                image1 = Image.open(os.path.join(uploads_dir, file))
+                if compare_images(img, image1):
+                    isExist = True
+                    break
+        if not isExist:
+            img.save(os.path.join(uploads_dir, str(len(os.listdir(uploads_dir))) + '.'+img.format.lower()))
 
 
     return "Done"
