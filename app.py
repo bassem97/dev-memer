@@ -124,6 +124,8 @@ def return_meme():
     img = random.choice(imgs)
     # get mimetype of the image
     mimetype = img.split('.')[-1]
+    if mimetype == 'mp4':
+        return send_file(os.path.join(uploads_dir, img), mimetype='video/'+mimetype)
     return send_file(os.path.join(uploads_dir, img), mimetype='image/'+mimetype)
 
 
